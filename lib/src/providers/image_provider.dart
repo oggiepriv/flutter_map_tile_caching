@@ -101,7 +101,10 @@ class FMTCImageProvider extends ImageProvider<FMTCImageProvider> {
 
         final error = FMTCBrowsingError(throwError, throwErrorType!);
         provider.settings.errorHandler?.call(error);
-        throw error;
+
+        if (throwErrorType != FMTCBrowsingErrorType.noConnectionDuringFetch) {
+          throw error;
+        }
       }
 
       if (bytes != null) {
